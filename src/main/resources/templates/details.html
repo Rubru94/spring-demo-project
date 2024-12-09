@@ -8,8 +8,10 @@
   <body>
     <h2 th:text="${title}"></h2>
     <ul>
-      <li th:text="${name}"></li>
-      <li th:text="${lastname}"></li>
+      <!-- equivalent to use getter => user.getName() -->
+      <li th:text="${user.name}"></li>
+      <!-- equivalent to use getter => user.getLastname() -->
+      <li th:text="${user.lastname}"></li>
     </ul>
   </body>
 </html>
