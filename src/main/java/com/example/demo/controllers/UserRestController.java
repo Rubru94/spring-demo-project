@@ -1,6 +1,9 @@
 package com.example.demo.controllers;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +27,25 @@ public class UserRestController {
         userDto.setUser(user);
 
         return userDto;
+    }
+
+    @GetMapping("details-list")
+    public List<User> list() {
+        User user = new User("John", "Doe");
+        User user2 = new User("Arthur", "Morgan");
+        User user3 = new User("Elver", "Galarga");
+
+        /*
+         * List<User> users = new ArrayList<>();
+         * users.add(user);
+         * users.add(user2);
+         * users.add(user3);
+         */
+
+        // same result --> Arrays.asList
+        List<User> users = Arrays.asList(user, user2, user3);
+
+        return users;
     }
 
     @GetMapping("details-map")
