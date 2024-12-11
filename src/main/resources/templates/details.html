@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title th:text="${title}">OldDetails</title>
+    <title th:text="${title}">Details</title>
   </head>
   <body>
     <h2 th:text="${title}"></h2>
@@ -12,6 +12,8 @@
       <li th:text="${user.name}"></li>
       <!-- equivalent to use getter => user.getLastname() -->
       <li th:text="${user.lastname}"></li>
+      <li th:if="${user.email}" th:text="${user.email}"></li>
+      <li th:if="${user.email == null}" th:text="${'No email'}"></li>
     </ul>
   </body>
 </html>
