@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.example.demo.models.User;
 
@@ -28,14 +29,23 @@ public class UserController {
 
     @GetMapping("list")
     public String list(ModelMap model) {
-        User user1 = new User("John", "Doe", "jd@gmail.com");
-        User user2 = new User("Arthur", "Morgan");
-        User user3 = new User("Elver", "Galarga", "elga@hotmail.com");
 
-        List<User> users = Arrays.asList(user1, user2, user3);
         model.addAttribute("title", "List template");
-        model.addAttribute("users", users);
 
         return "list";
+    }
+
+    /*
+     * @ModelAttribute
+     * 
+     * Annotation that binds a method parameter or method return value to a named
+     * model attribute, exposed to a web view.
+     */
+    @ModelAttribute("users")
+    public List<User> getUsersModel() {
+        return Arrays.asList(
+                new User("John", "Doe", "jd@gmail.com"),
+                new User("Arthur", "Morgan"),
+                new User("Elver", "Galarga", "elga@hotmail.com"));
     }
 }
