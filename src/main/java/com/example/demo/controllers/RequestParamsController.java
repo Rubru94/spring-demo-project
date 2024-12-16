@@ -15,11 +15,19 @@ public class RequestParamsController {
     @GetMapping("example")
     public ParamDto getExample(@RequestParam(name = "msg", required = false, defaultValue = "empty") String message) {
 
-        ParamDto param = new ParamDto();
+        ParamDto paramDto = new ParamDto();
         // param.setMessage(message != null ? message : "default");
-        param.setMessage(message);
+        paramDto.setMessage(message);
+        return paramDto;
+    }
 
-        return param;
+    @GetMapping("several-reqparams")
+    public ParamDto getSeveralReqParams(@RequestParam String text, @RequestParam Integer code) {
+
+        ParamDto paramDto = new ParamDto();
+        paramDto.setMessage(text);
+        paramDto.setCode(code);
+        return paramDto;
     }
 
 }
