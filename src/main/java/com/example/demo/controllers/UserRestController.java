@@ -1,12 +1,13 @@
 package com.example.demo.controllers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,4 +59,13 @@ public class UserRestController {
         body.put("user", user);
         return body;
     }
+
+    @PostMapping()
+    public User create(@RequestBody User entity) {
+        // TODO: process POST request, e.g. like saving user or convert to upper case
+        if (entity.getLastname() != null)
+            entity.setLastname(entity.getLastname().toUpperCase());
+        return entity;
+    }
+
 }
