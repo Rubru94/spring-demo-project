@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,25 @@ import com.example.demo.models.dto.UserDto;
 @RestController
 @RequestMapping("api")
 public class UserRestController {
+
+    @Value("${custom.config.cod}")
+    private Long cod;
+
+    @Value("${custom.config.username}")
+    private String username;
+
+    @Value("${custom.config.valuesList}")
+    private Integer[] valuesList;
+
+    @GetMapping("values")
+    public Map<String, Object> values(@Value("${custom.config.message}") String message) {
+        Map<String, Object> json = new HashMap<>();
+        json.put("cod", cod);
+        json.put("username", username);
+        json.put("valuesList", valuesList);
+        json.put("message", message);
+        return json;
+    }
 
     @GetMapping("details")
     public UserDto details() {
