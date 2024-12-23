@@ -38,6 +38,15 @@ public class UserRestController {
     @Value("#{'${custom.config.valuesList}'.toUpperCase()}")
     private String valuesStringSpEL;
 
+    @Value("#{${custom.config.valuesMap}}")
+    private Map<String, Object> valuesMap;
+
+    @Value("#{${custom.config.valuesMap}.product}")
+    private String product;
+
+    @Value("#{${custom.config.valuesMap}.price}")
+    private Long price;
+
     @GetMapping("values")
     public Map<String, Object> values(@Value("${custom.config.message}") String message) {
         Map<String, Object> json = new HashMap<>();
@@ -46,6 +55,9 @@ public class UserRestController {
         json.put("valuesList", valuesList);
         json.put("valuesListSpEL", valuesListSpEL);
         json.put("valuesStringSpEL", valuesStringSpEL);
+        json.put("valuesMap", valuesMap);
+        json.put("product", product);
+        json.put("price", price);
         json.put("message", message);
         return json;
     }

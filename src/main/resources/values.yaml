@@ -3,4 +3,8 @@ custom:
     cod: 200
     username: Arthur
     valuesList: a,b,c,d,e
+    valuesMap:
+      product: cpu Intel Core i7 12th
+      description: Alder Lake
+      price: 1000
     message: Hello there éñ@! # special characters can be used in .yaml file
