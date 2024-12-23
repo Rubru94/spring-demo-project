@@ -1,0 +1,6 @@
+custom:
+  config:
+    cod: 200
+    username: Arthur
+    valuesList: 1,2,3,4,7
+    message: Hello there éñ@! # special characters can be used in .yaml file
