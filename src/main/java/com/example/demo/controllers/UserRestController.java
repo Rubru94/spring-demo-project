@@ -26,7 +26,17 @@ public class UserRestController {
     private String username;
 
     @Value("${custom.config.valuesList}")
-    private Integer[] valuesList;
+    private List<String> valuesList;
+
+    /*
+     * Spring Expression Language (SpEL) is a powerful expression language that
+     * supports querying and manipulating an object graph at runtime
+     */
+    @Value("#{'${custom.config.valuesList}'.split(',')}")
+    private List<String> valuesListSpEL;
+
+    @Value("#{'${custom.config.valuesList}'.toUpperCase()}")
+    private String valuesStringSpEL;
 
     @GetMapping("values")
     public Map<String, Object> values(@Value("${custom.config.message}") String message) {
@@ -34,6 +44,8 @@ public class UserRestController {
         json.put("cod", cod);
         json.put("username", username);
         json.put("valuesList", valuesList);
+        json.put("valuesListSpEL", valuesListSpEL);
+        json.put("valuesStringSpEL", valuesStringSpEL);
         json.put("message", message);
         return json;
     }
