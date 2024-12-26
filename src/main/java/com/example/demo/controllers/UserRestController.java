@@ -12,12 +12,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.models.CustomConfigProperties;
 import com.example.demo.models.User;
 import com.example.demo.models.dto.UserDto;
 
 @RestController
 @RequestMapping("api")
 public class UserRestController {
+
+    private final CustomConfigProperties customConfigProperties;
+
+    public UserRestController(CustomConfigProperties customConfigProperties) {
+        this.customConfigProperties = customConfigProperties;
+    }
 
     @Value("${custom.config.cod}")
     private Long cod;
@@ -38,14 +45,35 @@ public class UserRestController {
     @Value("#{'${custom.config.valuesList}'.toUpperCase()}")
     private String valuesStringSpEL;
 
-    @Value("#{${custom.config.valuesMap}}")
-    private Map<String, Object> valuesMap;
+    /*
+     * @INFO config
+     * 
+     * SpEL sintax for objects/maps working directly only with .properties files
+     */
+    /*
+     * @Value("#{${custom.config.valuesMap}}")
+     * private Map<String, Object> valuesMap;
+     */
 
-    @Value("#{${custom.config.valuesMap}.product}")
-    private String product;
+    /*
+     * @INFO config
+     * 
+     * For config .yaml files we can obtain values from objects/maps using a
+     * Configuration class
+     */
+    public Map<String, Object> getValuesMap() {
+        return customConfigProperties.getValuesMap();
+    }
 
-    @Value("#{${custom.config.valuesMap}.price}")
-    private Long price;
+    /*
+     * @Value("#{${custom.config.valuesMap}.product}")
+     * private String product;
+     */
+
+    /*
+     * @Value("#{${custom.config.valuesMap}.price}")
+     * private Long price;
+     */
 
     @GetMapping("values")
     public Map<String, Object> values(@Value("${custom.config.message}") String message) {
@@ -55,9 +83,9 @@ public class UserRestController {
         json.put("valuesList", valuesList);
         json.put("valuesListSpEL", valuesListSpEL);
         json.put("valuesStringSpEL", valuesStringSpEL);
-        json.put("valuesMap", valuesMap);
-        json.put("product", product);
-        json.put("price", price);
+        json.put("valuesMap", /* valuesMap */ getValuesMap());
+        json.put("product", /* product */ getValuesMap().get("product"));
+        json.put("price", /* price */ getValuesMap().get("price"));
         json.put("message", message);
         return json;
     }
