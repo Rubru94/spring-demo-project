@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +21,12 @@ import com.example.demo.models.dto.UserDto;
 @RequestMapping("api")
 public class UserRestController {
 
+    private final Environment env;
+
     private final CustomConfigProperties customConfigProperties;
 
-    public UserRestController(CustomConfigProperties customConfigProperties) {
+    public UserRestController(Environment env, CustomConfigProperties customConfigProperties) {
+        this.env = env;
         this.customConfigProperties = customConfigProperties;
     }
 
@@ -79,6 +83,7 @@ public class UserRestController {
     public Map<String, Object> values(@Value("${custom.config.message}") String message) {
         Map<String, Object> json = new HashMap<>();
         json.put("cod", cod);
+        json.put("codFromEnvironment", env.getProperty("custom.config.cod", Integer.class));
         json.put("username", username);
         json.put("valuesList", valuesList);
         json.put("valuesListSpEL", valuesListSpEL);
@@ -87,6 +92,7 @@ public class UserRestController {
         json.put("product", /* product */ getValuesMap().get("product"));
         json.put("price", /* price */ getValuesMap().get("price"));
         json.put("message", message);
+        json.put("messageFromEnvironment", env.getProperty("custom.config.message"));
         return json;
     }
 
