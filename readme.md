@@ -1,5 +1,17 @@
 # Getting Started
 
+### Build jar
+
+```bash
+mvn clean package
+```
+
+### Run jar package from target
+
+```bash
+java -jar ./target/demo-0.0.1-SNAPSHOT.jar
+```
+
 ### Reference Documentation
 
 For further reference, please consider the following sections:
