@@ -15,5 +15,31 @@
       <li th:if="${user.email}" th:text="${user.email}"></li>
       <li th:if="${user.email == null}" th:text="${'No email'}"></li>
     </ul>
+    <p><a th:href="@{/list}">Show list</a></p>
+    <p>
+      <a th:href="@{'/api/params/example?msg=' + ${title}}"
+        >Show example with concat string url</a
+      >
+    </p>
+    <p>
+      <a th:href="@{/api/params/example(msg=${title})}"
+        >Show example with parentheses
+      </a>
+    </p>
+    <p>
+      <a th:href="@{/api/params/several-reqparams(text='Hi', code=123)}"
+        >Show example 2 params</a
+      >
+    </p>
+    <p>
+      <a th:href="@{/api/path-var/example/Hi there!}"
+        >Show example path variable</a
+      >
+    </p>
+    <p>
+      <a th:href="@{'/api/path-var/example/' + ${title}}"
+        >Show example path variable 2</a
+      >
+    </p>
   </body>
 </html>
